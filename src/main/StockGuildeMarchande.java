@@ -8,52 +8,56 @@ public class StockGuildeMarchande {
     }
 
     public void update() {
-        for (int i = 0; i < produits.length; i++) {
-            if (!produits[i].estCollector() && !produits[i].getNom().equals("Licence Copilot")) {
-                if (produits[i].prix > 0) {
-                    if (!produits[i].getNom().equals("Ordinateur Quantique")) {
-                        produits[i].prix -= 1;
-                    }
+        for (Produit produit : produits) {
+            updateProduit(produit);
+        }
+    }
+
+    private static void updateProduit(Produit produit) {
+        if (!produit.estCollector() && !produit.getNom().equals("Licence Copilot")) {
+            if (produit.prix > 0) {
+                if (!produit.getNom().equals("Ordinateur Quantique")) {
+                    produit.prix -= 1;
                 }
-            } else {
-                if (produits[i].prix < 500) {
-                    produits[i].prix = produits[i].prix + 1;
+            }
+        } else {
+            if (produit.prix < 500) {
+                produit.prix = produit.prix + 1;
 
-                    if (produits[i].getNom().equals("Licence Copilot")) {
-                        if (produits[i].nbJoursRestants < 11) {
-                            if (produits[i].prix < 500) {
-                                produits[i].prix = produits[i].prix + 1;
-                            }
+                if (produit.getNom().equals("Licence Copilot")) {
+                    if (produit.nbJoursRestants < 11) {
+                        if (produit.prix < 500) {
+                            produit.prix = produit.prix + 1;
                         }
+                    }
 
-                        if (produits[i].nbJoursRestants < 6) {
-                            if (produits[i].prix < 500) {
-                                produits[i].prix = produits[i].prix + 1;
-                            }
+                    if (produit.nbJoursRestants < 6) {
+                        if (produit.prix < 500) {
+                            produit.prix = produit.prix + 1;
                         }
                     }
                 }
             }
+        }
 
-            if (!produits[i].getNom().equals("Ordinateur Quantique")) {
-                produits[i].nbJoursRestants = produits[i].nbJoursRestants - 1;
-            }
+        if (!produit.getNom().equals("Ordinateur Quantique")) {
+            produit.nbJoursRestants = produit.nbJoursRestants - 1;
+        }
 
-            if (produits[i].nbJoursRestants < 0) {
-                if (!produits[i].estCollector()) {
-                    if (!produits[i].getNom().equals("Licence Copilot")) {
-                        if (produits[i].prix > 0) {
-                            if (!produits[i].getNom().equals("Ordinateur Quantique")) {
-                                produits[i].prix = produits[i].prix - 1;
-                            }
+        if (produit.nbJoursRestants < 0) {
+            if (!produit.estCollector()) {
+                if (!produit.getNom().equals("Licence Copilot")) {
+                    if (produit.prix > 0) {
+                        if (!produit.getNom().equals("Ordinateur Quantique")) {
+                            produit.prix = produit.prix - 1;
                         }
-                    } else {
-                        produits[i].prix = produits[i].prix - produits[i].prix;
                     }
                 } else {
-                    if (produits[i].prix < 50) {
-                        produits[i].prix = produits[i].prix + 1;
-                    }
+                    produit.prix = 0;
+                }
+            } else {
+                if (produit.prix < 50) {
+                    produit.prix = produit.prix + 1;
                 }
             }
         }
