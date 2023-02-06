@@ -15,27 +15,18 @@ public class StockGuildeMarchande {
 
     private static void updateProduit(Produit produit) {
         if (!produit.estCollector() && !produit.getNom().equals("Licence Copilot")) {
-            if (produit.prix > 0) {
-                if (!produit.getNom().equals("Ordinateur Quantique")) {
-                    produit.prix -= 1;
-                }
+            if (produit.prix > 0 && !produit.getNom().equals("Ordinateur Quantique")) {
+                produit.prix -= 1;
             }
-        } else {
-            if (produit.prix < 500) {
-                produit.prix = produit.prix + 1;
-
-                if (produit.getNom().equals("Licence Copilot")) {
-                    if (produit.nbJoursRestants < 11) {
-                        if (produit.prix < 500) {
-                            produit.prix = produit.prix + 1;
-                        }
-                    }
-
-                    if (produit.nbJoursRestants < 6) {
-                        if (produit.prix < 500) {
-                            produit.prix = produit.prix + 1;
-                        }
-                    }
+        }
+        else {
+            incrementerPrix(produit);
+            if (produit.getNom().equals("Licence Copilot")) {
+                if (produit.nbJoursRestants < 11) {
+                    incrementerPrix(produit);
+                }
+                if (produit.nbJoursRestants < 6) {
+                    incrementerPrix(produit);
                 }
             }
         }
@@ -56,10 +47,16 @@ public class StockGuildeMarchande {
                     produit.prix = 0;
                 }
             } else {
-                if (produit.prix < 50) {
+                if (produit.prix < 500) {
                     produit.prix = produit.prix + 1;
                 }
             }
+        }
+    }
+
+    public static void incrementerPrix(Produit produit){
+        if (produit.prix < 500){
+            produit.prix++;
         }
     }
 }
