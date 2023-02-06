@@ -17,6 +17,26 @@ public class StockGuildeMarchande {
         if(produit.getNom().equals("Ordinateur Quantique")){
             return;
         }
+        usureNormale(produit);
+        produit.nbJoursRestants = produit.nbJoursRestants - 1;
+        if (produit.nbJoursRestants < 0) {
+            usureObsolescence(produit);
+        }
+    }
+
+    private static void usureObsolescence(Produit produit) {
+        if (!produit.estCollector()) {
+            if (!produit.getNom().equals("Licence Copilot")) {
+                decrementerPrix(produit);
+            } else {
+                produit.prix = 0;
+            }
+        } else {
+            incrementerPrix(produit);
+        }
+    }
+
+    private static void usureNormale(Produit produit) {
         if (!produit.estCollector() && !produit.getNom().equals("Licence Copilot")) {
             decrementerPrix(produit);
         }
@@ -29,18 +49,6 @@ public class StockGuildeMarchande {
                 if (produit.nbJoursRestants < 6) {
                     incrementerPrix(produit);
                 }
-            }
-        }
-        produit.nbJoursRestants = produit.nbJoursRestants - 1;
-        if (produit.nbJoursRestants < 0) {
-            if (!produit.estCollector()) {
-                if (!produit.getNom().equals("Licence Copilot")) {
-                    decrementerPrix(produit);
-                } else {
-                    produit.prix = 0;
-                }
-            } else {
-                incrementerPrix(produit);
             }
         }
     }
