@@ -18,9 +18,7 @@ public class StockGuildeMarchande {
             return;
         }
         if (!produit.estCollector() && !produit.getNom().equals("Licence Copilot")) {
-            if (produit.prix > 0 ) {
-                produit.prix -= 1;
-            }
+            decrementerPrix(produit);
         }
         else {
             incrementerPrix(produit);
@@ -37,16 +35,12 @@ public class StockGuildeMarchande {
         if (produit.nbJoursRestants < 0) {
             if (!produit.estCollector()) {
                 if (!produit.getNom().equals("Licence Copilot")) {
-                    if (produit.prix > 0) {
-                        produit.prix = produit.prix - 1;
-                    }
+                    decrementerPrix(produit);
                 } else {
                     produit.prix = 0;
                 }
             } else {
-                if (produit.prix < 500) {
-                    produit.prix = produit.prix + 1;
-                }
+                incrementerPrix(produit);
             }
         }
     }
@@ -55,5 +49,11 @@ public class StockGuildeMarchande {
         if (produit.prix < 500){
             produit.prix++;
         }
+    }
+    public static void decrementerPrix(Produit produit){
+        if(produit.prix >0) {
+            produit.prix--;
+        }
+
     }
 }
