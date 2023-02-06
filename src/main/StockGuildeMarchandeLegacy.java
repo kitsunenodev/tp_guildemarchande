@@ -51,7 +51,7 @@ public class StockGuildeMarchandeLegacy {
                         produits[i].prix = produits[i].prix - produits[i].prix;
                     }
                 } else {
-                    if (produits[i].prix < 50) {
+                    if (produits[i].prix < 500) {
                         produits[i].prix = produits[i].prix + 1;
                     }
                 }

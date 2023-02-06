@@ -9,59 +9,8 @@ public class StockGuildeMarchande {
 
     public void update() {
         for (Produit produit : produits) {
-            updateProduit(produit);
+            produit.update();
         }
     }
 
-    private static void updateProduit(Produit produit) {
-        if(produit.getNom().equals("Ordinateur Quantique")){
-            return;
-        }
-        usureNormale(produit);
-        produit.nbJoursRestants = produit.nbJoursRestants - 1;
-        if (produit.nbJoursRestants < 0) {
-            usureObsolescence(produit);
-        }
-    }
-
-    private static void usureObsolescence(Produit produit) {
-        if (!produit.estCollector()) {
-            if (!produit.getNom().equals("Licence Copilot")) {
-                decrementerPrix(produit);
-            } else {
-                produit.prix = 0;
-            }
-        } else {
-            incrementerPrix(produit);
-        }
-    }
-
-    private static void usureNormale(Produit produit) {
-        if (!produit.estCollector() && !produit.getNom().equals("Licence Copilot")) {
-            decrementerPrix(produit);
-        }
-        else {
-            incrementerPrix(produit);
-            if (produit.getNom().equals("Licence Copilot")) {
-                if (produit.nbJoursRestants < 11) {
-                    incrementerPrix(produit);
-                }
-                if (produit.nbJoursRestants < 6) {
-                    incrementerPrix(produit);
-                }
-            }
-        }
-    }
-
-    public static void incrementerPrix(Produit produit){
-        if (produit.prix < 500){
-            produit.prix++;
-        }
-    }
-    public static void decrementerPrix(Produit produit){
-        if(produit.prix >0) {
-            produit.prix--;
-        }
-
-    }
 }
